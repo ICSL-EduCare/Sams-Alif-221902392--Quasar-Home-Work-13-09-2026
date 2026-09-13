@@ -1,6 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+    <!-- Header -->
+    <q-header elevated class="bg-primary text-white">
       <q-toolbar>
         <q-btn
           flat
@@ -11,92 +12,141 @@
           @click="toggleLeftDrawer"
         />
 
-        <q-toolbar-title>
-          Quasar App
-        </q-toolbar-title>
+        <q-toolbar-title> Quasar Comprehensive Guide </q-toolbar-title>
 
         <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-    >
-      <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
+    <!-- Sidebar (Drawer) -->
+    <q-drawer v-model="leftDrawerOpen" show-if-above bordered class="bg-grey-1">
+      <q-scroll-area class="fit">
+        <q-list>
+          <q-item-label header class="text-weight-bold text-primary">
+            Navigation Menu
+          </q-item-label>
 
-        <EssentialLink
-          v-for="link in linksList"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
+          <!-- Menu Links -->
+          <q-item
+            clickable
+            v-ripple
+            to="/flex"
+            exact
+            active-class="text-primary bg-blue-1"
+          >
+            <q-item-section avatar><q-icon name="grid_on" /></q-item-section>
+            <q-item-section>Flex Grid (1-5)</q-item-section>
+          </q-item>
+
+          <q-item
+            clickable
+            v-ripple
+            to="/vue-components1"
+            active-class="text-primary bg-blue-1"
+          >
+            <q-item-section avatar><q-icon name="widgets" /></q-item-section>
+            <q-item-section>Vue Components 1 (6-10)</q-item-section>
+          </q-item>
+
+          <q-item
+            clickable
+            v-ripple
+            to="/vue-components2"
+            active-class="text-primary bg-blue-1"
+          >
+            <q-item-section avatar><q-icon name="widgets" /></q-item-section>
+            <q-item-section>Vue Components 2 (11-15)</q-item-section>
+          </q-item>
+
+          <q-item
+            clickable
+            v-ripple
+            to="/forms1"
+            active-class="text-primary bg-blue-1"
+          >
+            <q-item-section avatar
+              ><q-icon name="text_fields"
+            /></q-item-section>
+            <q-item-section>Form Components 1 (21-25)</q-item-section>
+          </q-item>
+
+          <q-item
+            clickable
+            v-ripple
+            to="/ui-components1"
+            active-class="text-primary bg-blue-1"
+          >
+            <q-item-section avatar><q-icon name="web_asset" /></q-item-section>
+            <q-item-section>UI Components 1 (41-45)</q-item-section>
+          </q-item>
+
+          <q-item
+            clickable
+            v-ripple
+            to="/misc1"
+            active-class="text-primary bg-blue-1"
+          >
+            <q-item-section avatar><q-icon name="image" /></q-item-section>
+            <q-item-section>Misc Components 1 (56-60)</q-item-section>
+          </q-item>
+
+          <q-item
+            clickable
+            v-ripple
+            to="/directives1"
+            active-class="text-primary bg-blue-1"
+          >
+            <q-item-section avatar><q-icon name="touch_app" /></q-item-section>
+            <q-item-section>Directives 1 (76-80)</q-item-section>
+          </q-item>
+
+          <q-item
+            clickable
+            v-ripple
+            to="/plugins1"
+            active-class="text-primary bg-blue-1"
+          >
+            <q-item-section avatar><q-icon name="extension" /></q-item-section>
+            <q-item-section>Plugins 1 (86-90)</q-item-section>
+          </q-item>
+
+          <q-item
+            clickable
+            v-ripple
+            to="/composables"
+            active-class="text-primary bg-blue-1"
+          >
+            <q-item-section avatar><q-icon name="code" /></q-item-section>
+            <q-item-section>Composables (96-100)</q-item-section>
+          </q-item>
+
+          <q-item
+            clickable
+            v-ripple
+            to="/utils"
+            active-class="text-primary bg-blue-1"
+          >
+            <q-item-section avatar><q-icon name="build" /></q-item-section>
+            <q-item-section>Quasar Utils (101-105)</q-item-section>
+          </q-item>
+        </q-list>
+      </q-scroll-area>
     </q-drawer>
 
+    <!-- Page Content Container -->
     <q-page-container>
+      <!-- This is where all the pages will be rendered based on the route -->
       <router-view />
     </q-page-container>
   </q-layout>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import EssentialLink from 'components/EssentialLink.vue'
+import { ref } from "vue";
 
-const linksList = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
-]
+const leftDrawerOpen = ref(false);
 
-const leftDrawerOpen = ref(false)
-
-function toggleLeftDrawer () {
-  leftDrawerOpen.value = !leftDrawerOpen.value
+function toggleLeftDrawer() {
+  leftDrawerOpen.value = !leftDrawerOpen.value;
 }
 </script>
